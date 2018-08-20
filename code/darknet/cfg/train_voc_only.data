@@ -1,0 +1,10 @@
+classes = 2
+
+### Data Location Parammeters
+train =  ../../../data/VOCGender/2007_train.txt
+
+### Label Files
+names = data/gender.names
+
+### Save Backup at location
+backup = backup/genderICIP_voc_only

@@ -1,0 +1,10 @@
+classes = 2
+
+### Data Location Parammeters
+train =  ../../../data/CelebA/train_val.txt 
+
+### Label Files
+names = data/gender.names
+
+### Save Backup at location
+backup = backup/gender_celeb_only

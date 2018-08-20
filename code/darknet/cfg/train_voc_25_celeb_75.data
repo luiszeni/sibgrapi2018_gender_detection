@@ -1,0 +1,14 @@
+classes = 2
+
+multi_base = 1
+proportion = 25
+
+### Data Location Parammeters
+train =  ../../../data/VOCGender/2007_train.txt
+train2 =  ../../../data/CelebA/train_val.txt 
+
+### Label Files
+names = data/gender.names
+
+### Save Backup at location
+backup = backup/gender_voc_50_celeb_50

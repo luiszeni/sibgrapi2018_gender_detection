@@ -1,0 +1,9 @@
+classes = 2
+
+### Data Location Parammeters
+
+valid = ../../../data/CelebA/test.txt
+
+### Label Files
+names = data/gender.names
+
