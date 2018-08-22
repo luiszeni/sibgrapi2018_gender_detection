@@ -34,11 +34,11 @@ We annotated two datasets to train our model that is able to deal with gender de
 ## CelebA
 	We have 3 diferent tar.gz files:
 
-	### celeba_lists_train_val_test.tar.gz
+	> celeba_lists_train_val_test.tar.gz
 	Contain the lists of files used to train  and to evaluate our models
 	
-	### celeba_labels_darknet_format.tar.gz	
+	> celeba_labels_darknet_format.tar.gz	
 	Annotations in darknet format (i.e.,  bounding boxes are normalizated by the size of the image).
 
-	### celeba_labels.tar.gz
+	> celeba_labels.tar.gz
 	Annotations in txt format without normalization.
