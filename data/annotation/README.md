@@ -19,16 +19,16 @@ We annotated two datasets to train our model that is able to deal with gender de
 ## Pascal VOC 2007
 	We have 4 diferent tar.gz files:
 
-	### voc2007_lists_train_val.tar.gz
+	> voc2007_lists_train_val.tar.gz
 	Contain the lists of files used to train  and to evaluate our models
 
-	### voc2007_xml.tar.gz
+	> voc2007_xml.tar.gz
 	Annotations in xml pascal VOC 2007 format.
 	
-	### voc2007_labels_darknet_format.tar.gz
+	> voc2007_labels_darknet_format.tar.gz
 	Annotations in darknet format (i.e.,  bounding boxes are normalizated by the size of the image).
 
-	### voc2007_labels.tar.gz
+	> voc2007_labels.tar.gz
 	Annotations in txt format without normalization.
 
 ## CelebA
