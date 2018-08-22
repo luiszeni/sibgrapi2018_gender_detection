@@ -31,6 +31,31 @@ We annotated two datasets to train our model that is able to deal with gender de
 	> voc2007_labels.tar.gz
 	Annotations in txt format without normalization.
 
+	## Setting Up
+
+	We want a structure like this:
+
+	VOCGender
+		\___VOC2007
+			\___JPEGImages/
+			\___labels/
+			\___train.txt
+			\___val.txt
+
+
+	1- Download Pascal VOC 2007 dataset images from 
+	here: https://pjreddie.com/media/files/VOCtrainval_06-Nov-2007.tar
+	and here: https://pjreddie.com/media/files/VOCtest_06-Nov-2007.tar
+
+	2- Extract the datasets and maintain only the folder "JPEGImages" inside it
+
+	3- Download voc2007_labels_darknet_format.tar.gz and extract it inside the VOC2007 folder
+
+	4- Download voc2007_lists_train_val.tar.gz and extract it inside the VOC2007 folder
+
+	Done =)	
+
+
 ## CelebA
 	We have 3 diferent tar.gz files:
 
@@ -42,3 +67,25 @@ We annotated two datasets to train our model that is able to deal with gender de
 
 	> celeba_labels.tar.gz
 	Annotations in txt format without normalization.
+
+	## Setting Up
+
+	We want a structure like this:
+
+	CelebA
+		\___imgs/
+		\___labels/
+		\___train.txt
+		\___test.txt
+		\___val.txt
+
+
+	1- Download all CelebA images from here: https://drive.google.com/drive/folders/0B7EVK8r0v71peklHb0pGdDl6R28 (yeah, there are 14 parts of 7z files)
+
+	2- Extract the images in the folder with name "img" 
+
+	3- Download celeba_labels_darknet_format.tar.gz and extract it inside the CelebA folder
+
+	4- Download celeba_lists_train_val_test.tar.gz and extract it inside the CelebA folder
+
+	Done =)
