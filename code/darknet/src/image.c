@@ -271,14 +271,8 @@ void draw_detections_attr(image im, int num, float thresh, box *boxes, float **p
 
                sprintf(labelstr, "%s: %.0f%%", names[0], probs[i][0]*100);
                image label = get_label(alphabet, labelstr, (im.h*.03)/10);
-               draw_label(im, top - 30, left, label, rgb);
+               draw_label(im, top, left, label, rgb);
                free_image(label);
-
-               sprintf(labelstr, "%s: %.0f%%", names[1], probs[i][1]*100);
-               label = get_label(alphabet, labelstr, (im.h*.03)/10);
-               draw_label(im, top + width, left, label, rgb);
-               free_image(label);
-
             }else if(probs[i][1] > probs[i][0]){
                rgb[0] = 255.0/255.0;
                rgb[1] = 91.0/255.0;
@@ -286,15 +280,10 @@ void draw_detections_attr(image im, int num, float thresh, box *boxes, float **p
 
                sprintf(labelstr, "%s: %.0f%%", names[1], probs[i][1]*100);
                image label = get_label(alphabet, labelstr, (im.h*.03)/10);
-               draw_label(im, top - 30, left, label, rgb);
+               draw_label(im, top, left, label, rgb);
                free_image(label);
 
-               sprintf(labelstr, "%s: %.0f%%", names[0], probs[i][0]*100);
-               label = get_label(alphabet, labelstr, (im.h*.03)/10);
-               draw_label(im, top + width, left, label, rgb);
-               free_image(label);
-
-            }else {
+           }else {
                rgb[0] = 255.0/255.0;
                rgb[1] = 0.0/255.0;
                rgb[2] = 0.0/255.0;
