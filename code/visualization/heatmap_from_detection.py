@@ -6,9 +6,7 @@ from keras import backend as K
 from yad2k.keras_yolo import yolo_eval, yolo_head, loadYoloModel
 
 from core.BoundBox import BoundBox
-from core.Utils import convertDetectionsToMyImp, normalizeImg, image_resize
-from core.DisplayUtils import put_title
-
+from core.Utils import *
 
 def heat_map(activation_output, img, yolo_model):
 	last_conv_layer = yolo_model.get_layer('leaky_re_lu_22')
@@ -29,31 +27,18 @@ def heat_map(activation_output, img, yolo_model):
 	heatmap = cv2.resize(heatmap, (img[0].shape[1], img[0].shape[0]))
 	return heatmap
 
-def heatmap_title(title, activation_output, img, yolo_model):
-	print(activation_output)
-	ht = heat_map(yolo_model.output[activation_output], img, yolo_model)
-	return put_title(title, ht)
+def normalize_grads(img, img_size):
+		img /= np.max(img)
+		img = cv2.resize(img, (img_size[1], img_size[0]))
+		img = np.uint8(255 * img)
+		img = cv2.applyColorMap(img, cv2.COLORMAP_JET)
+		return img.astype("float32")/255
 
-def normalize_grads(grds, groups, img_size):
-	print(grds)
-	print(groups)
-	
-	biggestValue = 0 
-	for group in groups:
-		print("grupin", group)
-		if np.max(grds[group]) > biggestValue:
-			biggestValue = np.max(grds[group])
-		   
-	for img_name in groups:
-		grds[img_name] /= biggestValue
-		grds[img_name] = cv2.resize(grds[img_name], (img_size[1], img_size[0]))
-		grds[img_name] = np.uint8(255 * grds[img_name])
-		grds[img_name] = cv2.applyColorMap(grds[img_name], cv2.COLORMAP_JET)
-		grds[img_name] = grds[img_name].astype(float)/255
-
-def alpha_grad(grds, img):
-	for img_name  in grds:
-		grds[img_name] = grds[img_name] * 0.75 + img * 0.5
+def alpha_grad(img, orig_image, img_orig_size=None):
+		cv2.addWeighted(img, 0.6, orig_image, 0.4, 0, img)
+		if img_orig_size is not None:
+			img = image_resize(img, height = img_orig_size[0], width = img_orig_size[1], inter = cv2.INTER_AREA)
+		return img
 
 def create_image_grid(grds, grid):
 	final = np.array([])
@@ -73,34 +58,30 @@ def create_image_grid(grds, grid):
 	return final
 
 
-def detection_heatmap_proceess_frame(img, h5_model):
-	colors = {'man': (0.9019, 0.7647, 0.6235), 
-			  'woman': (0.6470, 0.3568, 1.0)}
+def detection_heatmap_proceess_frame(img, h5_model, max_detections=3, old_detections=None):
+	colors = {'man': (0.9019, 0.7647, 0.6235), 'woman': (0.6470, 0.3568, 1.0)}
 
 	#load the tensorflow model, i am assuming that this code will be used to  gender detection cases, therefore, I hardcoded some data =p
 	yolo_model, anchors, class_names = loadYoloModel(h5_model, 'cfg/anchors.txt', 'cfg/gender_classes.txt')
 
 	model_image_size = yolo_model.layers[0].input_shape[1:3]
 
-
-	img_size = img.shape
-	img  = normalizeImg(img, model_image_size)
+	img_orig_size = img.shape
+	img  = normalize_img(img, model_image_size)
 
 	sess = K.get_session() 
-
 
 	yolo_outputs = yolo_head(yolo_model.output, anchors, len(class_names))
 	input_image_shape = K.placeholder(shape=(2, ))
 
-	boxes, scores, classes, boxes_scores = yolo_eval(yolo_outputs,
+	boxes, scores, classes, boxes_scores, box_xy, box_wh, box_confidence, box_class_probs = yolo_eval(yolo_outputs,
 													input_image_shape,
 													score_threshold=0.3,
 													iou_threshold=0.5,
 													grad_info=True)
 
-
-	out_boxes, out_scores, out_classes, out_boxes_scores = sess.run(
-												[boxes, scores, classes, boxes_scores],
+	out_boxes, out_scores, out_classes, out_boxes_scores, out_box_xy, out_box_wh, out_box_confidence, out_box_class_probs = sess.run(
+												[boxes, scores, classes, boxes_scores, box_xy, box_wh, box_confidence, box_class_probs],
 												feed_dict={
 												yolo_model.input: img,
 												input_image_shape: [img.shape[1], img.shape[2]],
@@ -110,40 +91,52 @@ def detection_heatmap_proceess_frame(img, h5_model):
 	print('Found {} boxes'.format(len(out_boxes)))
 
 	# convert detections to my representationnnn of bb 
-	detections = convertDetectionsToMyImp(out_boxes, out_scores, out_classes, class_names, img.shape)
+	detections = convert_detections_to_my_imp(out_boxes, out_scores, out_classes, class_names, img.shape)
 
-	# create image with all detected bounding boxes
-	imgAllDetections=img[0].copy()
-	for d in detections:
-		d.drawInImage(imgAllDetections, scale = 4, color=colors[d.classId], lineWidth=3, text=d.classId, alpha = 0.7)
-
-
-	##TODO -> work with more than one detection
+	images = []
 	for i, d in enumerate(detections):
+
 		#finds were the detection was generated n the region tensor
 		l = np.where(out_boxes_scores == out_scores[i])
-
 		grds = {}
-		grds["man"]		= heat_map(yolo_outputs[3][l[0][0],l[1][0],l[2][0],l[3][0],0], img, yolo_model)
-		grds["woman"]	  = heat_map(yolo_outputs[3][l[0][0],l[1][0],l[2][0],l[3][0],1], img, yolo_model)
+		
+		img_ind = l[0][0];
+		x = l[1][0]
+		y =  l[2][0]
+		anchor = l[3][0]
+		gender = l[4][0]
 
-		normalize_grads(grds, ["man","woman"], img[0].shape)
 
 		detectionImg = img[0].copy()
+		grds["heat"] = heat_map(yolo_model.output[ img_ind, x, y, anchor*7 + 5 + gender ], img, yolo_model)
+		grds["heat"] = normalize_grads(grds["heat"], img[0].shape)
+		grds["heat"] = alpha_grad(grds["heat"], detectionImg, img_orig_size)
 
 		d.drawInImage(detectionImg, scale = 4, color=colors[d.classId], lineWidth=3, text=d.classId, alpha = 0.7)
-
-		alpha_grad(grds, detectionImg)
-
-		grds["detection"] = detectionImg
-		grds["original"] = img[0].copy()
-
-		detectionGrad = create_image_grid(grds,  [["original","detection"], ["man","woman"]])
 		
+		grds["detection"] = image_resize(detectionImg, height = img_orig_size[0], width = img_orig_size[1], inter = cv2.INTER_AREA)
+
+		images.append(create_image_grid(grds,  [["detection", "heat"]]))
+
+
+	images, detections = the_worst_tracking(detections[:], old_detections, images[:])
+	for i in range(len(images), max_detections):
+		if len(images) is 0:
+			orig_resized = image_resize(img[0].copy(), height = img_orig_size[0], width = img_orig_size[1], inter = cv2.INTER_AREA)
+			images.append( np.concatenate((orig_resized,orig_resized*0), axis=1))
+		else:
+			orig_resized = image_resize(img[0].copy(), height = img_orig_size[0], width = img_orig_size[1], inter = cv2.INTER_AREA)
+			images.append( np.concatenate((orig_resized*0,orig_resized*0), axis=1))
+
+
+	output_img = images[0]
+	for i in range(1, len(images)):
+		output_img =  np.concatenate((output_img,images[i]), axis=0)
+
 	sess.close()
 	K.clear_session() 
 
-	return image_resize(detectionGrad, height = img_size[0], width = img_size[1], inter = cv2.INTER_AREA)
+	return output_img, detections
 
 
 def get_args():
@@ -194,33 +187,53 @@ def _main():
 		if save_at is not None:
 			cv2.imwrite(save_at, output_img)
 	else:
+	
+		starting_frame = 25
+		max_frame = 650
+		skip_frames = 1
+		max_detections = 2
+
+
 		print("video", input_location)
 		cap = cv2.VideoCapture(input_location)
-		starting_frame = 25
-		max_frame = 300
-		skip_frames = 1
 
-		for f in range(0, starting_frame):
-		    ret, frame = cap.read()
-		for f in range(0, max_frame):
-		    # Capture frame-by-frame
-		    ret, frame = cap.read()
+		frame_size = None
+		if not cap.isOpened(): 
+		   print("uops, not able to pen the capture on opencv... =(")
+		else:
+			frame_size = int(cap.get(3)), int(cap.get(4))
+			for f in range(0, starting_frame):
+				ret, frame = cap.read()
+				cv2.imshow('frame',frame)
+				#out.write(output_img)
+				if cv2.waitKey(1) & 0xFF == ord('q'):
+					break
 
-		    if f % skip_frames is not 0:
-		    	continue
+			old_detections = None
+			fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+			out = cv2.VideoWriter('output.avi',fourcc, 24.0, (frame_size[0]*max_detections,frame_size[1]*2))
 
-		    # syeyeyeye I love chocolates <3
-		    output_img = detection_heatmap_proceess_frame(frame, h5_model)
+			for f in range(0, max_frame):
+				print("Frame ", f)
+				ret, frame = cap.read()
+				if f % skip_frames is 0:
+					# Beer is life, don't you think?
+					output_img, old_detections =  detection_heatmap_proceess_frame(frame, h5_model, max_detections, old_detections)
 
-		    # Display the resulting frame
-		    cv2.imshow('frame',output_img)
-		    if cv2.waitKey(10) & 0xFF == ord('q'):
-		        break
+					output_img *= 255
+					output_img = output_img.astype(np.uint8)	
+					out.write(output_img)
 
-		# When everything done, release the capture
-		cap.release()
-		cv2.destroyAllWindows()
+					if not no_window:
+						to_show = image_resize(output_img, height = 800, inter = cv2.INTER_AREA)
+						cv2.imshow('frame',to_show)
+						if cv2.waitKey(10) & 0xFF == ord('q'):
+							break
+
+			cap.release()
+			cv2.destroyAllWindows()
+			out.release()
 
 if __name__ == '__main__':
-    _main()
+	_main()
 

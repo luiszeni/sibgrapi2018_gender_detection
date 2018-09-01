@@ -359,7 +359,7 @@ def yolo_eval(yolo_outputs,
     if not grad_info:
         return boxes, scores, classes
     else:
-        return boxes, scores, classes, box_scores
+        return boxes, scores, classes, box_scores, box_xy, box_wh, box_confidence, box_class_probs
 
 def preprocess_true_boxes(true_boxes, anchors, image_size):
     """Find detector in YOLO where ground truth box should appear.
