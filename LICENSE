@@ -1,23 +1,10 @@
-This is a modification of the YAD2k, it is under MIT licence 
-
-More details at source:  https://github.com/allanzelener/YAD2K.git
-
------
 COPYRIGHT
 
-All contributions by Allan Zelener:
-Copyright (c) 2017, Allan Zelener.
-All rights reserved.
+As this work depends on another persons works (Darknet and YAD2K)
+all these parts ara licenced by the original authors lices.
 
-All other contributions:
-Copyright (c) 2017, the respective contributors.
-All rights reserved.
 
-Each contributor holds copyright over their respective contributions.
-The project versioning (Git) records all such contribution source information.
-
-LICENSE
-
+---
 The MIT License (MIT)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,3 +24,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+---
+
+I also recomend you to read the darknet Licenses, it is pretty fun =)
