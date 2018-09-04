@@ -5,34 +5,34 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 
 ## This project is organized in the following manner:
 
-	gender_sib2018/
-	\___code/
-		\___darknet/
-
-			-->darknet framework used to train our model.
-
-		\___scripts/
-			--> scripts to download the datasets with our annotated data.s
-		\___visualization/
-			--> our heatmap activation tool to visualize the activations of the network.
-	\___data/
-		\___annotations
-			--> set of annotations used to train our models
-		\___img
-			--> testing images
+gender_sib2018/
+\___code/
+	\___darknet/
+```
+-->darknet framework used to train our model.
+```
+	\___scripts/
+		--> scripts to download the datasets with our annotated data.s
+	\___visualization/
+		--> our heatmap activation tool to visualize the activations of the network.
+\___data/
+	\___annotations
+		--> set of annotations used to train our models
+	\___img
+		--> testing images
 
 ## Running the gender detector on darknet
 	
-1- build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
+1- Build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
 ```
 cd code/darknet
 make
 ```
-2- download our pre-trained model:
+2- Download our pre-trained model:
 ```
 wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
 ```
-3- run the demo
+3- Run the demo
 ```
 ./darknet detector demo cfg/test_voc_only.data cfg/yoloGender.cfg gender_detection_50voc_50celeb_darknet.weights
 ```
@@ -64,20 +64,20 @@ mkdir backup/gender_voc_50_celeb_50
 ## Visualizing the heatmap actvations
 Dependencies:  tensorflow, keras, opencv in python, numpy
 
-1-Downloading the tensorflow's model 
+1- Downloading the tensorflow's model 
 ```
 cd code/visualization
 wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
 ```
-2-Visualizing the heatmap of an image:
+2- Visualizing the heatmap of an image:
 ```
 python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/img/000058.jpg -md 3
 ```
-3-Visualizing the heatmap of an video:
+3- Visualizing the heatmap of an video:
 ```
 python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -v ../../data/vid/001.mp4 -md 2
 ```
-4-View all avaible options
+4- View all avaible options
 ```
 python heatmap_from_detection.py --help
 ```
