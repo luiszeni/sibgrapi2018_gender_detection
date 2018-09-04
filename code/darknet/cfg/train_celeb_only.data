@@ -1,7 +1,7 @@
 classes = 2
 
 ### Data Location Parammeters
-train =  ../../../data/CelebA/train_val.txt 
+train =  ../../data/CelebA/train.txt 
 
 ### Label Files
 names = data/gender.names

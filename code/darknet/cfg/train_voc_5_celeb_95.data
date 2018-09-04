@@ -4,8 +4,8 @@ multi_base = 1
 proportion = 5
 
 ### Data Location Parammeters
-train =  ../../../data/VOCGender/2007_train.txt
-train2 =  ../../../data/CelebA/train_val.txt 
+train  =  ../../data/VOCGender/2007_train.txt
+train2 =  ../../data/CelebA/train.txt 
 
 ### Label Files
 names = data/gender.names

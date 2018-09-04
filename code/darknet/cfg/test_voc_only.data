@@ -2,7 +2,7 @@ classes = 2
 
 ### Data Location Parammeters
 
-valid = ../../../data/VOCGender/2007_test.txt
+valid = ../../data/VOCGender/2007_test.txt
 
 ### Label Files
 names = data/gender.names
