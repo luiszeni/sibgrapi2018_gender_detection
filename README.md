@@ -8,9 +8,9 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 	gender_sib2018/
 	\___code/
 		\___darknet/
-			```
+
 			-->darknet framework used to train our model.
-			```
+
 		\___scripts/
 			--> scripts to download the datasets with our annotated data.s
 		\___visualization/
@@ -29,47 +29,56 @@ cd code/darknet
 make
 ```
 2- download our pre-trained model:
-	wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
-
+```
+wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
+```
 3- run the demo
-	./darknet detector demo cfg/test_voc_only.data cfg/yoloGender.cfg gender_detection_50voc_50celeb_darknet.weights
-
+```
+./darknet detector demo cfg/test_voc_only.data cfg/yoloGender.cfg gender_detection_50voc_50celeb_darknet.weights
+```
 ## Training a gender detector model on darknet with celebA and PascalVoc
-	1- Download the datasets running the scripts in c
-		cd code/scripts
-		./get_celeba_with_gender_annotations.sh
-		./get_voc_with_gender_annotations.sh
-
-	2- download yolo v2 pre-trained mode and cfg:
-		cd ../../
-		cd code/darknet
-		wget https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov2-voc.cfg
-		wget https://pjreddie.com/media/files/yolov2.weights
-
-	3- get only the 29 first layers of the model
-		./darknet partial yolov2-voc.cfg yolov2.weights yolov2.weights.29 29
-
-	4- Train (this code trains our model using in each epoch 50% of image from each dataset)
-		mkdir backup
-		mkdir backup/gender_voc_50_celeb_50
-		./darknet detector train cfg/train_voc_50_celeb_50.data cfg/yoloGender.cfg yolov2.weights.29 29
-
+1- Download the datasets running the scripts in c
+```
+cd code/scripts
+./get_celeba_with_gender_annotations.sh
+./get_voc_with_gender_annotations.sh
+```
+2- download yolo v2 pre-trained mode and cfg:
+```
+cd ../../
+cd code/darknet
+wget https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov2-voc.cfg
+wget https://pjreddie.com/media/files/yolov2.weights
+```
+3- get only the 29 first layers of the model
+```
+./darknet partial yolov2-voc.cfg yolov2.weights yolov2.weights.29 29
+```
+4- Train (this code trains our model using in each epoch 50% of image from each dataset)
+```
+mkdir backup
+mkdir backup/gender_voc_50_celeb_50
+./darknet detector train cfg/train_voc_50_celeb_50.data cfg/yoloGender.cfg yolov2.weights.29 29
+```
 
 ## Visualizing the heatmap actvations
-	Dependencies:  tensorflow, keras, opencv in python, numpy
+Dependencies:  tensorflow, keras, opencv in python, numpy
 
-	-Downloading the tensorflow's model 
-		cd code/visualization
-		wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
-	
-	-Visualizing the heatmap of an image:
-		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/img/000058.jpg -md 3
-
-	
-	-Visualizing the heatmap of an video:
-		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -v ../../data/vid/001.mp4 -md 2
-
-	-View all avaible options
-		python heatmap_from_detection.py --help
-
+1-Downloading the tensorflow's model 
+```
+cd code/visualization
+wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
+```
+2-Visualizing the heatmap of an image:
+```
+python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/img/000058.jpg -md 3
+```
+3-Visualizing the heatmap of an video:
+```
+python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -v ../../data/vid/001.mp4 -md 2
+```
+4-View all avaible options
+```
+python heatmap_from_detection.py --help
+```
 
