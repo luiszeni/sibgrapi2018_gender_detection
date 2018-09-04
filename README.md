@@ -24,10 +24,10 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 ## Running the gender detector on darknet
 	
 1- build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
-	```
-	cd code/darknet
-	make
-	```
+```
+cd code/darknet
+make
+```
 2- download our pre-trained model:
 	wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
 
