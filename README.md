@@ -1,7 +1,9 @@
 # SIBGRAPI 2018 -  Real Time Gender Detection in the Wild #
-This repo contains the source code to reproduce our results of our paper published in the SIBGRAPHI2018. Our code is projected to run on Linux environment.
+This repo contains the source code to reproduce our results of our paper published in the SIBGRAPHI2018. Our code is projected to run on Linux environments.
 
 More details @  http://luiszeni.com.br/gender_sib2018/
+
+If you want an easy way to test our code, check out our Docker image on docker Docker Hub: [link]
 
 ## This project is organized in the following manner:
 sibgrapi2018_gender_detection<br>
