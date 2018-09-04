@@ -52,18 +52,19 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 
 
 ## Visualizing the heatmap actvations
-	Dependencies:  tensor flow, keras, opencv in python, numpy
-
-	The code is on path  code/visualization
+	Dependencies:  tensorflow, keras, opencv in python, numpy
 
 	-Downloading the tensorflow's model 
-		wget ...
+		cd code/visualization
+		wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
+	
 	-Visualizing the heatmap of an image:
-		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -v ../../data/04.mkv -s "savin.avi" -mf 700 -sf 25 -md 2
+		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/vid/001.mkv -s "activations_output.avi" -md 2
+	
 	-Visualizing the heatmap of an video:
-		python ...
+		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/img/001.png -s "activations_output.png" -md 2
 
-	-View avaible options
-		python ...
+	-View all avaible options
+		python heatmap_from_detection.py --help
 
 
