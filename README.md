@@ -3,7 +3,7 @@ This repo contains the source code to reproduce our results of our paper publish
 
 More details @  http://luiszeni.com.br/gender_sib2018/
 
-If you want an easy way to test and reproduce our method, check out our docker image @  Docker Hub: [link]
+If you want an easy way to test and reproduce our method, check out our docker image @  Docker Hub: https://github.com/luiszeni/sibgrapi2018_gender_detection/blob/master/how_to_docker.md
 
 ## This project is organized in the following manner:
 sibgrapi2018_gender_detection<br>
