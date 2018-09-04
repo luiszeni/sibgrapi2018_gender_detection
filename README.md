@@ -4,22 +4,21 @@ This repo contains the source code to reproduce our results of our paper publish
 More details @  http://luiszeni.com.br/gender_sib2018/
 
 ## This project is organized in the following manner:
-
-gender_sib2018/
-\___code/
-	\___darknet/
-```
--->darknet framework used to train our model.
-```
-	\___scripts/
-		--> scripts to download the datasets with our annotated data.s
-	\___visualization/
-		--> our heatmap activation tool to visualize the activations of the network.
-\___data/
-	\___annotations
-		--> set of annotations used to train our models
-	\___img
-		--> testing images
+sibgrapi2018_gender_detection<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___darknet 
+			**[Darknet framework used to train and run our models]**<br>			
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___scripts 
+			**[Scripts to download the datasets with our annotated data]**<br>		
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___visualization 
+			 **[Heatmap activation tool to visualize activations for each class of an trained model]**<br>	 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___annotations 
+			**[Set of annotations used to train our models]**<br>		
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___img 
+			**[Testing images]**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___vid 
+			**[Testing videos]**<br>
 
 ## Running the gender detector on darknet
 	
