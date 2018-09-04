@@ -35,10 +35,10 @@ wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_
 ```
 3- Run the demo
 ```
-./darknet detector demo cfg/test_voc_only.data cfg/yoloGender.cfg gender_detection_50voc_50celeb_darknet.weights
+./darknet detector demo cfg/test_voc_only.data cfg/yoloGender.cfg gender_detection_50voc_50celeb_darknet.weights ../../data/vid/001.mp4
 ```
 ## Training a gender detector model on darknet with celebA and PascalVoc
-1- Download the datasets running the scripts in c
+1- Download the datasets running the scripts to download
 ```
 cd code/scripts
 ./get_celeba_with_gender_annotations.sh
@@ -68,7 +68,7 @@ Dependencies:  tensorflow, keras, opencv in python, numpy
 1- Downloading the tensorflow's model 
 ```
 cd code/visualization
-wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
+wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_tensorflow.h5
 ```
 2- Visualizing the heatmap of an image:
 ```
