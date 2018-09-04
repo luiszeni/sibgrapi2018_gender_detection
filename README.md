@@ -8,7 +8,9 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 	gender_sib2018/
 	\___code/
 		\___darknet/
+			```
 			-->darknet framework used to train our model.
+			```
 		\___scripts/
 			--> scripts to download the datasets with our annotated data.s
 		\___visualization/
@@ -22,8 +24,10 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 ## Running the gender detector on darknet
 	
 	1- build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
+		```
 		cd code/darknet
 		make
+		```
 	2- download our pre-trained model:
 		wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
 
@@ -59,10 +63,11 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 		wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
 	
 	-Visualizing the heatmap of an image:
-		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/vid/001.mkv -s "activations_output.avi" -md 2
+		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/img/000058.jpg -md 3
+
 	
 	-Visualizing the heatmap of an video:
-		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -i ../../data/img/001.png -s "activations_output.png" -md 2
+		python heatmap_from_detection.py -m gender_detection_50voc_50celeb_tensorflow.h5  -v ../../data/vid/001.mp4 -md 2
 
 	-View all avaible options
 		python heatmap_from_detection.py --help
