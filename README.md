@@ -68,7 +68,7 @@ Dependencies:  tensorflow, keras, opencv in python, numpy
 1- Downloading the tensorflow's model 
 ```
 cd code/visualization
-wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
+wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_tensorflow.h5
 ```
 2- Visualizing the heatmap of an image:
 ```
