@@ -21,13 +21,13 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 
 ## Running the gender detector on darknet
 	
-1- build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
+	1- build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
 		cd code/darknet
 		make
-2- download our pre-trained model:
+	2- download our pre-trained model:
 		wget http://inf.ufrgs.br/~lfazeni/sib2018_models/gender_detection_50voc_50celeb_darknet.weights
 
-3- run the demo
+	3- run the demo
 		./darknet detector demo cfg/test_voc_only.data cfg/yoloGender.cfg gender_detection_50voc_50celeb_darknet.weights
 
 ## Training a gender detector model on darknet with celebA and PascalVoc
@@ -46,6 +46,8 @@ More details @  http://luiszeni.com.br/gender_sib2018/
 		./darknet partial yolov2-voc.cfg yolov2.weights yolov2.weights.29 29
 
 	4- Train (this code trains our model using in each epoch 50% of image from each dataset)
+		mkdir backup
+		mkdir backup/gender_voc_50_celeb_50
 		./darknet detector train cfg/train_voc_50_celeb_50.data cfg/yoloGender.cfg yolov2.weights.29 29
 
 
