@@ -1,5 +1,5 @@
-# SIBGRAPI 2018 -  Real Time Gender Detection in the Wild #
-This repo contains the source code to reproduce our results of our paper published in the SIBGRAPHI2018. Our code is projected to run on Linux environments.
+# SIBGRAPI 2018 -  Real-Time Gender Detection in the Wild #
+This repo contains the source code to reproduce the results of our paper published in the SIBGRAPHI2018. Our code is projected to run on Linux environments.
 
 More details @  http://luiszeni.com.br/gender_sib2018/
 
@@ -9,21 +9,21 @@ If you want an easy way to test and reproduce our method, check out our docker i
 sibgrapi2018_gender_detection<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___code<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___darknet 
-			**[Darknet framework used to train and run our models]**<br>			
+            **[Darknet framework used to train and run our models]**<br>            
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___scripts 
-			**[Scripts to download the datasets with our annotated data]**<br>		
+            **[Scripts to download the datasets with our annotated data]**<br>        
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___visualization 
-			 **[Heatmap activation tool to visualize activations for each class of an trained model]**<br>	 
+             **[Heatmap activation tool to visualize activations for each class of an trained model]**<br>     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___data<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___annotations 
-			**[Set of annotations used to train our models]**<br>		
+            **[Set of annotations used to train our models]**<br>        
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___img 
-			**[Testing images]**<br>
+            **[Testing images]**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___vid 
-			**[Testing videos]**<br>
+            **[Testing videos]**<br>
 
 ## Running the gender detector on darknet
-	
+    
 1- Build the project (see the makefile flags if you are not using a GPU or openCV, more details at darknet site)
 ```
 cd code/darknet
@@ -62,7 +62,7 @@ mkdir backup/gender_voc_50_celeb_50
 ./darknet detector train cfg/train_voc_50_celeb_50.data cfg/yoloGender.cfg yolov2.weights.29 29
 ```
 
-## Visualizing the heatmap actvations
+## Visualizing the heatmap activations
 Dependencies:  tensorflow, keras, opencv in python, numpy
 
 1- Downloading the tensorflow's model 
